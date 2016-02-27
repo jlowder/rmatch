@@ -115,10 +115,17 @@
                    ,gg
                    (progn ,@body))))))
                            
-(defmacro defun/match (name (args) &body body)
+;; (defmacro defun/match (name (args) &body body)
+;;   (labels ((rec (l pat)
+;;              (when (not (null l))
+;;                `(if-match ,(caar l) (list ,pat) (progn ,(cadar l)) ,(rec (cdr l) pat)))))
+;;     `(defun ,name (,args)
+;;        ,(rec body args))))
+
+(defmacro defun/match (name args &body body)
   (labels ((rec (l pat)
              (when (not (null l))
-               `(if-match ,(caar l) (list ,pat) (progn ,(cadar l)) ,(rec (cdr l) pat)))))
-    `(defun ,name (,args)
+               `(if-match ,(caar l) (list ,@pat) (progn ,(cadar l)) ,(rec (cdr l) pat)))))
+    `(defun ,name ,args
        ,(rec body args))))
 

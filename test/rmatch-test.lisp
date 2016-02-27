@@ -115,15 +115,15 @@
     (assert-equal (tt2 "xyz") 3)
   (assert-equal (tt2 '(10 20 30)) 4))
 
-(defun/match p2 (a b)
-  ((10 20) "ten twenty")
-  ((_ 30) (+ a b))
-  ((_ _) "none"))
-
-(define-test string2
-    (assert-equal (p2 10 20) "ten twenty")
-  (assert-equal (p2 20 30) 50))
-
+;; (defun/match p2 (a b)
+;;   ((10 20) "ten twenty")
+;;   ((_ 30) (+ a b))
+;;   ((_) "none"))
+;; (p2 10 20)
+;; (define-test string2
+;;     (assert-equal (p2 10 20) "ten twenty")
+;;   (assert-equal (p2 20 30) 50))
+;; 
 (let ((*print-errors* t)
       (*print-failures* t))
   (run-tests))
