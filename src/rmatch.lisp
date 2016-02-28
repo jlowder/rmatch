@@ -8,6 +8,11 @@
 
 (in-package :rmatch)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; From "On Lisp" by Paul Graham, mostly from Chapter 18 (Destructuring), with a few tweaks
+;;; on variable name handling
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defun destruc (pat seq &optional (atom? #'atom) (n 0))
   (if (null pat)
       nil
@@ -102,8 +107,10 @@
   (if (null patseqs)
       `(progn
          ,@body)
-      `(if-match ,(caar patseqs) ,(cadar patseqs)
-                 (match-let* ,(cdr patseqs) ,@body))))
+    (let ((gg (gensym)))
+      `(let ((,gg ,(cadar patseqs)))
+         (if-match ,(caar patseqs) ,gg
+                 (match-let* ,(cdr patseqs) ,@body))))))
 
 (defmacro match-let (patseqs &body body)
   (labels ((rec (l)
@@ -115,13 +122,6 @@
                    ,gg
                    (progn ,@body))))))
                            
-;; (defmacro defun/match (name (args) &body body)
-;;   (labels ((rec (l pat)
-;;              (when (not (null l))
-;;                `(if-match ,(caar l) (list ,pat) (progn ,(cadar l)) ,(rec (cdr l) pat)))))
-;;     `(defun ,name (,args)
-;;        ,(rec body args))))
-
 (defmacro defun/match (name args &body body)
   (labels ((rec (l pat)
              (when (not (null l))
