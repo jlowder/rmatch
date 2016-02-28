@@ -24,17 +24,17 @@
 
 (define-test no-capture1
     (let ((b 100))
-      (match-let (((a b) '(10 20))
+      (match-let (((a b) (list b 20))
                   ((x) (list b)))
-        (assert-equal 10 a)
+        (assert-equal 100 a)
         (assert-equal 20 b)
         (assert-equal 100 x))))
 
 (define-test no-capture2
     (let ((b 100))
-      (match-let* (((a b) '(10 20))
+      (match-let* (((a b) (list b 20))
                    ((x) (list b)))
-        (assert-equal 10 a)
+        (assert-equal 100 a)
         (assert-equal 20 b)
         (assert-equal 20 x))))
 
@@ -54,20 +54,6 @@
       (assert-equal x '(5 6 7))
       (assert-equal y '(10 20))))
 
-(match-let (((a b) '(10 20))
-            ((x) '(30)))
-  (list a b x))
-;; (LET ((#:G2167 (APPEND '(10 20) (APPEND '(30) NIL))))
-;;   (IF-MATCH (A B X) #:G2167
-;;             (LIST A B X)))
-
-(match-let* (((a b) '(10 20))
-             ((x) '(30)))
-  (list a b x))
-;; (IF-MATCH (A B) '(10 20)
-;;           (IF-MATCH (X) '(30)
-;;                     (LIST A B X)))
-
 (define-test small1
     (match-let (((a b) '(100 200)))
       (assert-equal 100 a)
@@ -78,6 +64,18 @@
       (assert-equal 100 a)
       (assert-equal 200 b)))
 
+(define-test repeated1
+  (match-let (((a b a b) '(10 20 10 20))
+              ((b a) '(20 10)))
+             (assert-equal a 10)
+             (assert-equal b 20)))
+
+(define-test repeated2
+  (match-let*  (((a b a b) '(10 20 10 20))
+                ((b a) '(20 10)))
+               (assert-equal a 10)
+               (assert-equal b 20)))
+             
 (define-test style1
     (let ((n1 "this is a test"))
       (match-let (((a b c) (list n1 150 #(1 2 3)))
