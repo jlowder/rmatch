@@ -94,6 +94,20 @@
         (assert-true (equalp c #(1 2 3)))
         (assert-equal x 110))))
 
+(define-test nonmatch1
+    (assert-false (match-let (((a b 10) '(10 20 30)))
+                    (list a b)))
+  (assert-true (match-let (((a b 10) '(30 20 10)))
+                 (list a b)))
+  (assert-false (match-let* (((a b 10) '(10 20 30)))
+                  (list a b)))
+  (assert-true (match-let* (((a b 10) '(30 20 10)))
+                 (list a b)))
+  (assert-false (match-let (((a b) '(10 20 30)))
+                  (list a b)))
+  (assert-false (match-let* (((a b) '(10 20 30)))
+                  (list a b))))
+
 (defun/match factorial (n)
   ((0) 1)
   ((_) (* n (factorial (- n 1)))))

@@ -4,22 +4,24 @@ When you work in Common Lisp, you eventually discover
 destructuring-bind and then you find it indispensable. If you then try
 some other lisp variant which doesn't have destructuring-bind (e.g.,
 scheme) you will miss it and look for alternatives. In the case of
-Racket, that alternative is provided by the _racket/match_ library,
-which includes several advanced pattern matching forms. Ironically,
-now I find myself missing these forms whenever I work in Common
-Lisp. So this package is an attempt to recreate some of the
-Racket-style pattern matching forms in Common Lisp, by building on the
-Paul Graham's pattern matching macros from "On Lisp".
+Racket, that alternative is provided by the
+[racket/match](https://docs.racket-lang.org/reference/match.html)
+library, which includes several advanced pattern matching
+forms. Ironically, now I find myself missing these forms whenever I
+work in Common Lisp. So this package is an attempt to recreate some of
+the Racket-style pattern matching forms in Common Lisp, at least to a
+first-order approximation. It's implemented by building on Paul
+Graham's pattern matching macros from "On Lisp".
 
 # Usage
 
-So far, _match-let_, _match-let*_ and _defun/match_ have been implemented.
+So far, `match-let`, `match-let*` and `defun/match` have been implemented.
 
 ~~~lisp
  (match-let ((pat seq) ...) body)
 ~~~
 
- All symbols in all _pat_ expressions are bound to their corresponding _seq_ values and available to _body_.
+ All symbols in all `pat` expressions are bound to their corresponding `seq` values and available to `body`.
 
 Example:
 
@@ -34,9 +36,9 @@ Example:
  (match-let* ((pat seq) ...) body)
 ~~~
 
-Similar to _match-let_ except that symbols bound in each _pat_ expression are available to subsequent _seq_ expressions.
+Similar to `match-let` except that symbols bound in each `pat` expression are available to subsequent `seq` expressions.
 
-Example;
+Example:
 
 ~~~lisp
 (let ((b 100))
@@ -51,9 +53,9 @@ Example;
     ((seq body) ...))
 ~~~
 
-Creates a _defun_ with the name _fname_. The body of the function
-attempt to match _args_ against each _seq_ expression. As soon as a
-match is found, the corresponding _body_ is evaluated.
+Creates a `defun` with the name `fname`. The body of the function
+attempts to match `args` against each `seq` expression. As soon as a
+match is found, the corresponding `body` is evaluated.
 
 Example:
 
