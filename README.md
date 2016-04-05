@@ -31,8 +31,9 @@ Example:
    (list a b x y))
 
 => (10 20 30 40)
+~~~
 
-
+~~~lisp
  (match-let* ((pat seq) ...) body)
 ~~~
 
@@ -47,8 +48,9 @@ Example:
     (list a b x y)))
 
 => (100 20 30 20)
+~~~
 
-
+~~~lisp
  (defun/match fname (args)
     ((seq body) ...))
 ~~~
@@ -69,7 +71,7 @@ Example:
 => 3628800
 ~~~
 
-~~~
+~~~lisp
  (match pat ((seq body) ...)
 ~~~
 
@@ -80,24 +82,24 @@ to have the same number of patterns as `pat`.
 Example:
 
 ~~~lisp
- (match '(1 2 2)
+ (match (list 1 (list 2) 2)
    ((a b) "two")
-   ((a b b) "repeated")
-   ((a b c) (list c b a)))
+   ((a (b) b) "repeated")
+   ((a (b) c) (list c b a)))
 
 => "repeated"
 
  (match (list 1 (list 2) 3)
    ((a b) "two")
-   ((a b b) "repeated")
+   ((a (b) b) "repeated")
    ((a (b) c) (list c b a)))
 
 => (3 2 1)
 
  (match '(2 3)
    ((a b) "two")
-   ((a b b) "repeated")
-   ((a b c) (list c b a)))
+   ((a (b) b) "repeated")
+   ((a (b) c) (list c b a)))
 
 => "two"
 ~~~
