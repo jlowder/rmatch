@@ -68,3 +68,36 @@ Example:
 
 => 3628800
 ~~~
+
+~~~
+ (match pat ((seq body) ...)
+~~~
+
+Attempts to match `pat` against each `seq` expression. As soon as a match
+is found, the corresponding `body` is evaluated. `seq` expressions do not need
+to have the same number of patterns as `pat`.
+
+Example:
+
+~~~lisp
+ (match '(1 2 2)
+   ((a b) "two")
+   ((a b b) "repeated")
+   ((a b c) (list c b a)))
+
+=> "repeated"
+
+ (match (list 1 (list 2) 3)
+   ((a b) "two")
+   ((a b b) "repeated")
+   ((a (b) c) (list c b a)))
+
+=> (3 2 1)
+
+ (match '(2 3)
+   ((a b) "two")
+   ((a b b) "repeated")
+   ((a b c) (list c b a)))
+
+=> "two"
+~~~
