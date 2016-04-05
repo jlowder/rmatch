@@ -136,6 +136,25 @@
   (assert-equal (p2 20 30) 50)
   (assert-equal (p2 10 10) "none"))
 
+(define-test match1
+    (assert-equal "two"
+                  (match '(a b)
+                    ((x y z) "three")
+                    ((x y) "two"))))
+
+(define-test match2
+    (assert-equal "three"
+                  (match '(a b (c))
+                    ((x y z) "three")
+                    ((x y) "two"))))
+
+(define-test match3
+    (assert-equal 33
+                  (match (list 11 22 (list 33))
+                    ((x y (z)) z)
+                    ((x y) "two"))))
+
 (let ((*print-errors* t)
       (*print-failures* t))
   (run-tests))
+
