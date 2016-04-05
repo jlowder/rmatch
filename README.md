@@ -15,7 +15,7 @@ Graham's pattern matching macros from "On Lisp".
 
 # Usage
 
-So far, `match-let`, `match-let*` and `defun/match` have been implemented.
+So far, `match-let`, `match-let*`, `defun/match`, and `match` have been implemented.
 
 ~~~lisp
  (match-let ((pat seq) ...) body)
