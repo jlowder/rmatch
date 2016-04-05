@@ -4,7 +4,8 @@
   (:use :common-lisp)
   (:export :match-let
            :match-let*
-           :defun/match))
+           :defun/match
+           :match))
 
 (in-package :rmatch)
 
@@ -129,3 +130,10 @@
     `(defun ,name ,args
        ,(rec body args))))
 
+(defmacro match (args &body body)
+  (labels ((rec (l pat)
+             (when (not (null l))
+               `(if-match ,(caar l) ,pat (progn ,(cadar l)) ,(rec (cdr l) pat)))))
+    (let ((gg (gensym)))
+      `(let ((,gg ,args))
+         ,(rec body gg)))))
