@@ -103,3 +103,7 @@ Example:
 
 => "two"
 ~~~
+
+# License
+
+MIT
