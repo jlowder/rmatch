@@ -19,3 +19,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+
+Some of the included code came from the book "On Lisp" by Paul Graham, as noted
+in the source code. For this code, the following notice applies:
+ 
+This code is copyright 1993 by Paul Graham, but anyone who wants 
+to use the code in any nonprofit activity, or distribute free
+verbatim copies (including this notice), is encouraged to do so.

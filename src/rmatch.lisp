@@ -10,8 +10,12 @@
 (in-package :rmatch)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; From "On Lisp" by Paul Graham, mostly from Chapter 18 (Destructuring), with a few tweaks
-;;; on variable name handling
+;;; The following code section is from "On Lisp" by Paul Graham, mostly from Chapter
+;;; 18 (Destructuring). The following notice applies:
+;;;
+;;; This code is copyright 1993 by Paul Graham, but anyone who wants 
+;;; to use the code in any nonprofit activity, or distribute free
+;;; verbatim copies (including this notice), is encouraged to do so.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun destruc (pat seq &optional (atom? #'atom) (n 0))
@@ -40,10 +44,6 @@
      ,@body))
 
 (defun simple? (x) (or (atom x) (eq (car x) 'quote)))
-
-(defun var? (x)
-  (and (symbolp x)
-       (not (null x))))
 
 (defun vars-in (expr &optional (atom? #'atom))
   (if (funcall atom? expr)
@@ -103,6 +103,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; End of "On Lisp" code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; This is based on the On Lisp version of var?. However, this version
+;; does not require symbol names to be prefixed with a question mark.
+(defun var? (x)
+  (and (symbolp x)
+       (not (null x))))
 
 (defmacro match-let* (patseqs &body body)
   (if (null patseqs)
